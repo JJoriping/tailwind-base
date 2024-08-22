@@ -1,9 +1,10 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import { col, error, info, Logger, success } from "@daldalso/logger";
+import { error, info, success } from "@daldalso/logger";
 import loadConfig from "tailwindcss/lib/lib/load-config.js";
 import setupContextUtils from "tailwindcss/lib/lib/setupContextUtils.js";
 import resolveConfig from "tailwindcss/lib/public/resolve-config.js";
+import "./logger.js";
 
 const context = {
   package: JSON.parse(readFileSync(resolve(import.meta.dirname, "../package.json")).toString()),
@@ -13,16 +14,10 @@ const context = {
 };
 
 async function main():Promise<void>{
-  Logger.instance.setOptions({ headerFormat: col.lMagenta`tailwind-base` + " $H │ ", indent: 18 });
   info(context.package['version']);
   loadContext();
 
-  const tailwindConfigPath = readdirSync(process.cwd()).find(v => /^tailwind\.config\.\w+$/.test(v));
-  if(!tailwindConfigPath){
-    error("Tailwind config file not found");
-    process.exit(1);
-  }
-  const tailwindConfig = resolveConfig.default(await loadConfig.loadConfig(resolve(process.cwd(), tailwindConfigPath)));
+  const tailwindConfig = resolveConfig.default(await loadConfig.loadConfig(resolve(process.cwd(), context.tailwindConfigPath)));
   const tailwindContext = setupContextUtils.createContext(tailwindConfig);
   const classGroupMap:Record<string, Array<string|{ raw: string }>> = {};
   const codedClassGroups:string[] = [];
@@ -100,9 +95,10 @@ async function main():Promise<void>{
         }
       }
       actualV = actualV.filter(x => x);
-      actualV.push({ raw: `{"${className}":k.${l}}` });
       if(hasNegativePair){
-        actualV.push({ raw: `{"-${className}":k.${l}}` });
+        actualV.push({ raw: `{"${className}":k.${l},"-${className}":k.${l}}` });
+      }else{
+        actualV.push({ raw: `{"${className}":k.${l}}` });
       }
     }
     for(const w of actualV){
@@ -133,7 +129,7 @@ async function main():Promise<void>{
     "  conflictingClassGroups: {},",
     "  conflictingClassGroupModifiers: {},",
     `  separator: ${JSON.stringify(tailwindConfig.separator || "-")}`,
-    "};"
+    '} as import("./lib/index.js").TailwindBaseConfig;'
   ].join('\n');
 
   writeFileSync(context.outputPath, R);

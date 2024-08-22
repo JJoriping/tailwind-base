@@ -1,11 +1,12 @@
-import { createTailwindMerge } from "tailwind-merge";
 import type { CValue } from "../react.js";
+import type { TailwindBaseConfig } from "./lib/index.js";
+import TailwindBase from "./lib/index.js";
 
-let customTwMerge:(...args:CValue[]) => string;
+let tailwindBase:TailwindBase;
 
-export function loadTailwindBase(config:any):void{
-  customTwMerge = createTailwindMerge(() => config);
+export function loadTailwindBase(config:TailwindBaseConfig, cacheEnabled?:boolean):TailwindBase{
+  return tailwindBase = new TailwindBase(config, cacheEnabled);
 }
 export default function c(...args:CValue[]):string{
-  return customTwMerge(...args);
+  return tailwindBase.merge(...args);
 }

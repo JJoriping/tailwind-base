@@ -129,7 +129,7 @@ async function main():Promise<void>{
     "  conflictingClassGroups: {},",
     "  conflictingClassGroupModifiers: {},",
     `  separator: ${JSON.stringify(tailwindConfig.separator || "-")}`,
-    '} as import("./lib/index.js").TailwindBaseConfig;'
+    '} as import("@daldalso/tailwind-base/lib/index.js").TailwindBaseConfig;'
   ].join('\n');
 
   writeFileSync(context.outputPath, R);

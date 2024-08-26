@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@daldalso/tailwind-base",
-  "version": "0.9.0-beta.1",
+  "version": "0.9.0-beta.2",
   "description": "Let you exploit Tailwind in React more powerful",
   "repository": {
     "url": "git+https://github.com/JJoriping/tailwind-base.git"

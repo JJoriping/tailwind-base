@@ -23,12 +23,7 @@ export default class TailwindBase{
   }
   public merge(...args:CValue[]):string{
     let R:string|undefined;
-    let chunk = "";
-    for(const v of args){
-      if(!v) continue;
-      if(typeof v !== "string") continue;
-      chunk += ` ${v}`;
-    }
+    const chunk = concat(args);
     if(this.cacheEnabled && (R = this.chunkCache[chunk])){
       return R;
     }
@@ -79,4 +74,13 @@ export default class TailwindBase{
     });
     return this.indexCache[className] = index === -1 ? "" : `${list.join(':')}:${index}`;
   }
+}
+function concat(args:CValue[]):string{
+  let R = "";
+  for(const v of args){
+    if(!v) continue;
+    if(typeof v === "string") R += ` ${v}`;
+    else R += concat(v);
+  }
+  return R;
 }

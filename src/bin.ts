@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { error, info, success } from "@daldalso/logger";

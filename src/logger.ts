@@ -1,3 +1,6 @@
 import { col, Logger } from "@daldalso/logger";
 
-Logger.instance.setOptions({ headerFormat: col.lMagenta`tailwind-base` + " $H │ ", indent: 18 });
+export const logger = new Logger({
+  headerFormat: col.lMagenta`tailwind-base` + " $H │ ",
+  indent: 18
+});

@@ -1,5 +1,4 @@
 import type { CValue } from "../../react.js";
-import "../logger.js";
 
 export type TailwindBaseConfig = {
   'classGroups': GroupDescriptor[]

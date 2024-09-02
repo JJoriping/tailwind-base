@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import { error, info, success } from "@daldalso/logger";
 import loadConfig from "tailwindcss/lib/lib/load-config.js";
 import setupContextUtils from "tailwindcss/lib/lib/setupContextUtils.js";
 import resolveConfig from "tailwindcss/lib/public/resolve-config.js";
-import "./logger.js";
+import { logger } from "./logger.js";
 
 const context = {
   package: JSON.parse(readFileSync(resolve(import.meta.dirname, "../package.json")).toString()),
@@ -15,7 +14,7 @@ const context = {
 };
 
 async function main():Promise<void>{
-  info(context.package['version']);
+  logger.info(context.package['version']);
   loadContext();
 
   const tailwindConfig = resolveConfig.default(await loadConfig.loadConfig(resolve(process.cwd(), context.tailwindConfigPath)));
@@ -134,23 +133,23 @@ async function main():Promise<void>{
   ].join('\n');
 
   writeFileSync(context.outputPath, R);
-  success(`Generated ${context.outputPath}`)['Size'](R.length);
+  logger.success(`Generated ${context.outputPath}`)['Size'](R.length);
 }
 main();
 
 function loadContext():void{
   if(!context.cssFilePath){
-    error("CSS file path not set");
+    logger.error("CSS file path not set");
     process.exit(1);
   }
   if(!existsSync(context.cssFilePath)){
-    error("CSS file not found")['Path'](context.cssFilePath);
+    logger.error("CSS file not found")['Path'](context.cssFilePath);
     process.exit(1);
   }
   const cwd = process.cwd();
   const tailwindConfigPath = readdirSync(cwd).find(v => /^tailwind\.config\.\w+$/.test(v));
   if(!tailwindConfigPath){
-    error("Tailwind config file not found");
+    logger.error("Tailwind config file not found");
     process.exit(1);
   }
   context.tailwindConfigPath = resolve(cwd, tailwindConfigPath);

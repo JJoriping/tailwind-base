@@ -79,7 +79,12 @@ function concat(args:CValue[]):string{
   for(const v of args){
     if(!v) continue;
     if(typeof v === "string") R += ` ${v}`;
-    else R += concat(v);
+    else if(Array.isArray(v)) R += concat(v);
+    else for(const l in v){
+      for(const x of concat([ v[l] ]).split(' ')){
+        if(x) R += ` ${l}:${x}`;
+      }
+    }
   }
   return R;
 }

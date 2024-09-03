@@ -13,7 +13,8 @@ export namespace TailwindBaseJSX{
   interface IntrinsicClassAttributes<T> extends ReactJSX.IntrinsicClassAttributes<T>{}
   interface IntrinsicElements extends Augmented<ReactJSX.IntrinsicElements, { c?: CValue }>{}
 }
-export type CValue = ArrayOr<string|undefined|null|0|0n|false>;
+type CValueBase = string|undefined|null|0|0n|false;
+export type CValue = ArrayOr<CValueBase|Readonly<Record<string, ArrayOr<CValueBase>>>>;
 
 type Augmented<T, O> = {
   [key in keyof T]: T[key]&O

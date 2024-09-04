@@ -81,6 +81,7 @@ The button's classes will be `bg-red font-normal hover:bg-blue hover:font-bold` 
 > c(isBold ? "hover:font-bold" : "hover:font-normal"); // Fine
 >
 > c({ hover: boldStyle }); // Prevented by tailwind-base
+> c({ hover: c("font-bold") }); // Prevented by tailwind-base
 > c({ hover: isBold ? "font-bold" : "font-normal" }); // Fine
 > ```
 

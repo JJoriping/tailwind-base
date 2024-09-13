@@ -8,6 +8,7 @@ type CandidateDescriptor = string[]|Array<(value:string) => boolean>;
 
 const dynamicValuePattern = /^(.+)-(\[.+])$/;
 
+export const ghostSymbol = Symbol("ghost");
 export default class TailwindBase{
   private readonly config:TailwindBaseConfig;
   private readonly chunkCache:Record<string, string>;
@@ -80,6 +81,7 @@ function concat(args:CValue[]):string{
     if(!v) continue;
     if(typeof v === "string") R += ` ${v}`;
     else if(Array.isArray(v)) R += concat(v);
+    else if(ghostSymbol in v) R += ` ${concat([ v[ghostSymbol] as CValue ])}`;
     else for(const l in v){
       for(const x of concat([ v[l] ]).split(' ')){
         if(x) R += ` ${l}:${x}`;

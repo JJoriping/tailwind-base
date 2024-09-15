@@ -5,7 +5,7 @@ Let you exploit Tailwind in React more powerful
 ### Installation
 1. `yarn add @daldalso/tailwind-base`
 2. `npx tailwind-base globals.css` (You should replace `globals.css` with the path of a proper Tailwind CSS file which contains something like `@tailwind base;`.)
-3. Import the generated TypeScript file in your root component like `import "(my-src-path)/tailwind-base";`.
+3. Add `<TailwindBaseInitializer />` to your root component.
 4. Update your Tailwind config file like below:
    ```js
    import tailwindBaseTransformer from "@daldalso/tailwind-base/transformer";

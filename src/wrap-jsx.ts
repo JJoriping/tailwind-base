@@ -5,6 +5,7 @@ export default function wrapJSX(Target:(...args:any[]) => ReactElement):typeof T
   return (type, props, ...rest) => {
     if(typeof type === "string" && props){
       props['className'] = c(props['className'], props['c']);
+      if(!props['className']) delete props['className'];
       delete props['c'];
     }
     return Target(type, props, ...rest);

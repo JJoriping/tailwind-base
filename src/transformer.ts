@@ -4,11 +4,11 @@ const valuePattern = /(["'])(.+?)\1/g;
 const functionCallPattern = /^[\w.]+\(/g;
 const valueSpacePattern = /\s+/;
 
-export default function tailwindBaseTransformer(content:string):string{
-  return content.replace(pattern, (_, g1:string) => {
+export default function buildTailwindBaseTransformer(postprocessors:Array<(value:string) => string|void> = []){
+  return (content:string) => content.replace(pattern, (_, g1:string) => {
     let R = "";
 
-    for(const [ ,, complexKey, simpleKey, value ] of g1.matchAll(g1Pattern)){
+    for(const [ ,, quotedKey, unquotedKey, value ] of g1.matchAll(g1Pattern)){
       if(functionCallPattern.test(value)){
         // Not to transform `{ myClass: c("font-bold") }`
         R += g1;
@@ -16,9 +16,14 @@ export default function tailwindBaseTransformer(content:string):string{
       }
       for(const w of value.matchAll(valuePattern)){
         for(const x of w[2].split(valueSpacePattern)){
-          R += `${complexKey || simpleKey}:${x} `;
+          const key = quotedKey || unquotedKey;
+
+          R += `${key}:${x} `;
         }
       }
+    }
+    if(R) for(const v of postprocessors){
+      R = v(R) || R;
     }
     return R ? `"${R}"` : _;
   });

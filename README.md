@@ -8,7 +8,7 @@ Let you exploit Tailwind in React more powerful
 3. Add `<TailwindBaseInitializer />` to your root component.
 4. Update your Tailwind config file like below:
    ```js
-   import tailwindBaseTransformer from "@daldalso/tailwind-base/transformer";
+   import buildTailwindBaseTransformer from "@daldalso/tailwind-base/transformer";
 
    export default {
      content: {
@@ -16,7 +16,7 @@ Let you exploit Tailwind in React more powerful
          /* ... */
          "!**/tailwind-base.ts"
        ],
-       transform: tailwindBaseTransformer
+       transform: buildTailwindBaseTransformer()
      }
    };
    ```

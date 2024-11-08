@@ -1,7 +1,8 @@
 import type { CValue } from "../../react.js";
 
 export type TailwindBaseConfig = {
-  'classGroups': GroupDescriptor[]
+  'classGroups': GroupDescriptor[],
+  'postprocessors'?: Array<(value:string) => string|void>
 };
 type GroupDescriptor = Array<string|Record<string, CandidateDescriptor>>;
 type CandidateDescriptor = string[]|Array<(value:string) => boolean>;
@@ -10,13 +11,16 @@ const dynamicValuePattern = /^(.+)-(\[.+])$/;
 
 export const ghostSymbol = Symbol("ghost");
 export default class TailwindBase{
-  private readonly config:TailwindBaseConfig;
+  private readonly config:Required<TailwindBaseConfig>;
   private readonly chunkCache:Record<string, string>;
   private readonly indexCache:Record<string, string>;
   private readonly cacheEnabled:boolean;
 
   public constructor(config:TailwindBaseConfig, cacheEnabled:boolean = false){
-    this.config = config;
+    this.config = {
+      classGroups: config.classGroups,
+      postprocessors: config.postprocessors || []
+    };
     this.chunkCache = {};
     this.indexCache = {};
     this.cacheEnabled = cacheEnabled;
@@ -45,6 +49,9 @@ export default class TailwindBase{
       classes.unshift(v);
     }
     R = classes.join(' ');
+    if(R) for(const v of this.config.postprocessors){
+      R = v(R) || R;
+    }
     if(this.cacheEnabled) this.chunkCache[chunk] = R;
     return R;
   }

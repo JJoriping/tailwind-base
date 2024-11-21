@@ -67,7 +67,9 @@ export default class TailwindBase{
           if(tail === w) return true;
         }else for(const m in w){
           for(const y of w[m]){
-            if(typeof y === "string"){
+            if(y === "DEFAULT"){
+              if(tail === m) return true;
+            }else if(typeof y === "string"){
               if(tail === `${m}-${y}`) return true;
             }else{
               chunk = tail.match(dynamicValuePattern);

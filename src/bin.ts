@@ -118,7 +118,6 @@ async function main():Promise<void>{
     "/* eslint-disable */",
     'const pluginUtils = require("tailwindcss/lib/util/pluginUtils.js");',
     'import { loadTailwindBase } from "@daldalso/tailwind-base";',
-    'import React from "react";',
     'import ClientTailwindBaseInitializer from "./client";',
     'import tailwindBaseConfigOverride from "./config";',
     "",

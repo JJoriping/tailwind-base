@@ -1,12 +1,8 @@
 # Contributing
 
-## Questions
+## Questions and issues
 
-If you have questions about implementation details, help or support, then please use our dedicated community forum at (DISCORD)[https://discord.com/channels/456315379489308693/456317644539428875].
-
-## Reporting Issues
-
-If you have found what you think is a bug, please file an issue. PLEASE NOTE: Issues that are identified as implementation questions or non-issues will be immediately closed and redirected to GitHub Discussions
+If you have questions about implementation details, help or support, or want to report an issue, then please use our dedicated community forum at (DISCORD)[https://discord.com/channels/809809541385682964/809827655770832916].
 
 ## Suggesting new features
 

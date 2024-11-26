@@ -1,4 +1,4 @@
-const pattern = /(?<!\)\s*){(?=[^{]*?:[\S\s]+?["'][\S\s]+?})\s*([^}]+?)\s*}/g;
+const pattern = /(?<![)=]\s*){(?=[^{]*?:[\S\s]+?["'][\S\s]+?})\s*([^}]+?)\s*}/g;
 const g1Pattern = /(?:^|\s*,\s*)(?:(["'])(.+?)\1|(\w+))\s*:\s*((["'])[^}]+?\5)(?=\s*,|$)/g;
 const valuePattern = /(["'])(.+?)\1/g;
 const functionCallPattern = /^[\w.]+\(/g;

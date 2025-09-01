@@ -62,10 +62,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@daldalso/logger@npm:^0.9.2":
-  version: 0.9.2
-  resolution: "@daldalso/logger@npm:0.9.2"
-  checksum: 10c0/2b724d503b9242819112805bdfda5abcb3d69e1e7f63e8fe1a1f496d4b0e5656d1d4954c4d24097a01fd1ae5e749e1b29f5a4c00f98950c1df647e7f9af295e1
+"@daldalso/logger@npm:^0.9.5":
+  version: 0.9.5
+  resolution: "@daldalso/logger@npm:0.9.5"
+  checksum: 10c0/27afa5df3e46ec3d38b5987274e2b329eaa9a0deda2b3a07a482ce0487d0b148805b646f7dacd6a78b3194cc46f7ec76100209378207df1c827306b186996cf0
   languageName: node
   linkType: hard
 
@@ -74,16 +74,17 @@ __metadata:
   resolution: "@daldalso/tailwind-base@workspace:."
   dependencies:
     "@daldalso/eslint-plugin": "npm:^1.2.3"
-    "@daldalso/logger": "npm:^0.9.2"
+    "@daldalso/logger": "npm:^0.9.5"
     "@types/node": "npm:^22.4.2"
     "@types/react": "npm:^18.3.3"
     eslint: "npm:^9.9.0"
     postcss: "npm:^8.4.41"
-    react: "npm:^18"
     tailwind-merge: "npm:^2.5.2"
     tailwindcss: "npm:^3.4.10"
     tinybench: "npm:^2.9.0"
     typescript: "npm:^5.5.4"
+  peerDependencies:
+    react: ^18
   bin:
     tailwind-base: ./dist/bin.js
   languageName: unknown
@@ -2501,7 +2502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -3179,15 +3180,6 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10c0/33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
-  languageName: node
-  linkType: hard
-
-"react@npm:^18":
-  version: 18.3.1
-  resolution: "react@npm:18.3.1"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10c0/283e8c5efcf37802c9d1ce767f302dd569dd97a70d9bb8c7be79a789b9902451e0d16334b05d73299b20f048cbc3c7d288bbbde10b701fa194e2089c237dbea3
   languageName: node
   linkType: hard
 
